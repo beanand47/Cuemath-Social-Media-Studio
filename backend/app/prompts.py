@@ -18,6 +18,7 @@ def build_generation_prompt(user_prompt: str, selected_format: str, slide_count:
         "post": "post",
         "story": "story",
     }[selected_format]
+
     return dedent(
         f"""
         Create a social media post for students and parents.
@@ -29,8 +30,8 @@ def build_generation_prompt(user_prompt: str, selected_format: str, slide_count:
         - simple language (easy for kids)
         - engaging and friendly
         - slightly emotional or relatable
-        - include a hook at the beginning
-        - include a takeaway or value
+        - include a strong hook
+        - include a clear takeaway
 
         Tone:
         - encouraging
@@ -38,16 +39,21 @@ def build_generation_prompt(user_prompt: str, selected_format: str, slide_count:
         - not robotic
 
         Format:
-        - create content for an Instagram {format_label}
-        - return exactly {slide_count} item(s)
-        - for carousel, make each slide feel like part of one connected story
-        - for post and story, return a single polished creative
+        - Instagram {format_label}
+        - exactly {slide_count} item(s)
+
+        VERY IMPORTANT RULES:
+        - Each "text" MUST be under 180 characters
+        - Keep sentences short
+        - NO long paragraphs
+        - Avoid complex explanations
+        - Write like a social media caption
 
         Output:
-        - Title (hook)
-        - Caption (2-3 lines)
+        - title: short hook (max 60 chars)
+        - text: short caption (max 180 chars)
 
-        Return only a valid JSON array in this format:
+        Return ONLY valid JSON:
         [
           {{ "title": "...", "text": "..." }}
         ]
